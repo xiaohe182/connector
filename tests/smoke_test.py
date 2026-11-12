@@ -47,7 +47,19 @@ notify("notifications/initialized")
 # 2. 工具列表
 tools = request("tools/list")["result"]["tools"]
 print(f"✅ tools/list 返回 {len(tools)} 个工具：" + ", ".join(t["name"] for t in tools))
-assert {"list_connectors", "connect_email", "email_list_recent", "email_send"} <= {t["name"] for t in tools}
+assert {"list_connectors", "connect_email", "email_list_recent", "email_send",
+        "connect_dingtalk", "dingtalk_send_group", "dingtalk_send_work"} <= {t["name"] for t in tools}
+
+# 2.5 钉钉：未连接/错误路径
+text = call_tool("dingtalk_send_group", {"content": "测试"})
+assert "未配置" in text, text
+print("✅ 钉钉未配置拦截正常")
+text = call_tool("connect_dingtalk_robot", {"webhook": "https://bad.example.com"})
+assert text.startswith("❌"), text
+print("✅ 钉钉机器人 Webhook 校验正常")
+text = call_tool("dingtalk_send_work", {"userids": "u1", "content": "hi"})
+assert "未连接" in text, text
+print("✅ 钉钉应用未连接拦截正常")
 
 # 3. list_connectors 正常输出
 text = call_tool("list_connectors")

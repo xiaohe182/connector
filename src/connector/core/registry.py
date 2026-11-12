@@ -90,10 +90,10 @@ registry.register(ConnectorMeta(
 registry.register(ConnectorMeta(
     platform_id="dingtalk",
     name="💬 钉钉",
-    description="工作通知、群消息、待办、日程、审批、钉盘、钉钉文档",
+    description="群机器人消息（零资质）+ 工作通知；待办/日程/审批开发中",
     auth_type="app_config",
     phase="P1",
-    connect_tool=None,
+    connect_tool="connect_dingtalk",
 ))
 
 registry.register(ConnectorMeta(

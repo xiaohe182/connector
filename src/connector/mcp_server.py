@@ -135,6 +135,48 @@ def email_send(to: str, subject: str, body: str, cc: str = "") -> str:
     return email_conn.send(to, subject, body, cc)
 
 
+# ---------- 钉钉 ----------
+
+@tool
+def connect_dingtalk(appkey: str, appsecret: str, agent_id: str) -> str:
+    """连接钉钉企业内部应用（一次性配置，之后永久免配置）。
+    用户没有应用时先引导创建（免费约3分钟）：open-dev.dingtalk.com 扫码登录 →
+    应用开发→创建应用→拿 AppKey/AppSecret/AgentId。本工具真实验证凭证后才保存。"""
+    from .connectors import dingtalk_conn
+    return dingtalk_conn.connect(appkey, appsecret, agent_id)
+
+
+@tool
+def disconnect_dingtalk() -> str:
+    """断开钉钉应用并删除凭证。"""
+    from .connectors import dingtalk_conn
+    return dingtalk_conn.disconnect()
+
+
+@tool
+def connect_dingtalk_robot(webhook: str, secret: str = "", name: str = "default") -> str:
+    """连接钉钉群机器人（零资质最快路线，约1分钟）：任意群→设置→机器人→
+    添加『自定义』→安全设置勾『加签』→复制 Webhook 和加签密钥。"""
+    from .connectors import dingtalk_conn
+    return dingtalk_conn.connect_robot(webhook, secret, name)
+
+
+@tool
+def dingtalk_send_group(content: str, title: str = "", markdown: bool = False,
+                        robot: str = "default", at_all: bool = False,
+                        at_mobiles: str = "") -> str:
+    """向钉钉群发消息（经已保存的群机器人）。markdown=True 时 content 为 markdown 语法。"""
+    from .connectors import dingtalk_conn
+    return dingtalk_conn.send_group(content, title, markdown, robot, at_all, at_mobiles)
+
+
+@tool
+def dingtalk_send_work(userids: str, content: str, title: str = "") -> str:
+    """推送钉钉工作通知给指定成员（需已连接企业内部应用；userids 是成员 userid，逗号分隔）。"""
+    from .connectors import dingtalk_conn
+    return dingtalk_conn.send_work(userids, content, title)
+
+
 # ---------- JSON-RPC / MCP 协议层（纯同步） ----------
 
 def _handle(msg: dict[str, Any]) -> dict[str, Any] | None:

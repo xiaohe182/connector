@@ -122,6 +122,7 @@ class Vault:
 _KNOWN_PLATFORMS = [
     "email",
     "dingtalk",
+    "dingtalk_robots",
     "wecom",
     "feishu",
     "wps",
