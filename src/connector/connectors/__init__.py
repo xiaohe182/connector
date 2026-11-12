@@ -1,3 +1,3 @@
-from . import email_conn
+from . import email_conn, email_qq_wizard
 
-__all__ = ["email_conn"]
+__all__ = ["email_conn", "email_qq_wizard"]

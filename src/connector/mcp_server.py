@@ -98,6 +98,15 @@ def disconnect_email() -> str:
     return email_conn.disconnect()
 
 
+@tool
+def connect_email_qq_scan() -> str:
+    """QQ邮箱扫码连接（推荐）：自动弹出浏览器，用户用手机QQ扫码登录后，
+    自动开启 IMAP/SMTP 并捕获授权码、验证保存。过程中如需短信验证，
+    按浏览器页面提示完成即可。全程无需手动复制授权码。"""
+    from .connectors import email_qq_wizard
+    return email_qq_wizard.scan_connect()
+
+
 # ---------- 邮件功能 ----------
 
 @tool
