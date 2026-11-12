@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+.pytest_cache/
+
+# 凭证与本地配置（绝不提交）
+*.token
+*.secret
+.env
+config.local.*
+
+# IDE
+.idea/
+.vscode/
