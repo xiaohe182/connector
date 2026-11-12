@@ -9,9 +9,9 @@ dependencies = [
     # MCP 协议层为纯标准库同步实现（见 mcp_server.py 说明），不依赖官方 SDK/asyncio
     "keyring>=25.0.0",
     "imap-tools>=1.10.0",
-    # QQ邮箱扫码向导：纯HTTP实现（requests 只是互联网客户端）。
-    # 为什么不用 playwright/selenium/CDP：本机安全软件拦截一切本地监听端口，
-    # 所有浏览器驱动方案（asyncio socketpair / msedgedriver / Edge调试端口）全部挂死
+    # QQ邮箱扫码向导：selenium 驱动系统 Edge（msedgedriver）
+    # 注意：需要在 Windows 防火墙放行 msedgedriver.exe 入站（回环），否则连接驱动会挂死
+    "selenium>=4.20.0",
     "requests>=2.31.0",
 ]
 
